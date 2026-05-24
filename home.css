@@ -1,0 +1,79 @@
+body{
+    background-color: forestgreen;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    background-color: black;
+    height: 70px;
+    border-bottom: 1px solid grey;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.hori{
+    list-style-type: none; /* This removes the bullet points from the anchor tags*/
+    display: flex;  /* This arranges the elements horzontally */
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    
+} 
+
+a{
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px 20px;
+    transition: 0.5s;
+    display: inline-block;
+    background-color: white;
+}
+
+a:hover{
+      background-color: black;
+      color: whitesmoke;
+      transform: scale(1.15);
+}
+
+.overview{
+    border:1px solid black;
+    display:flex;
+    gap: 60px;
+    justify-content: center;
+    width: 80%;
+    background-color: aqua;
+
+}
+
+.card{
+    border:1px solid black;
+    border-radius: 10px;
+    margin:20px;
+    padding: 10px 20px;
+    background-color: beige;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+
+}
+
+
+.head{
+    font-size: larger;
+    font-weight: 500px;
+    
+}
+
+h1{
+    font-family: "orbitron", sans-serif;
+    font-size: 40px;
+    font-weight: 900px;
+    color: white;
+    margin-bottom: ;
+}
