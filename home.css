@@ -10,16 +10,15 @@ body{
     border-bottom: 1px solid grey;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 
 }
 
 .hori{
     list-style-type: none; /* This removes the bullet points from the anchor tags*/
-    display: flex;  /* This arranges the elements horzontally */
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    display: flex;
+    justify-content: flex-end;
+    
     
 } 
 
@@ -32,6 +31,7 @@ a{
     transition: 0.5s;
     display: inline-block;
     background-color: white;
+    margin: 4px;
 }
 
 a:hover{
@@ -75,5 +75,26 @@ h1{
     font-size: 40px;
     font-weight: 900px;
     color: white;
-    margin-bottom: ;
+    
+}
+
+.dropdown{
+    position: relative; /* This creates a reference point that children element can interact with*/
+    margin-top: 18px;
+}
+
+.dropdown-menu{
+    position: absolute; /* This makes it relate to the parent element*/
+    top: 100%;
+    left: 0;
+    background-color: chocolate;
+
+    list-style: none;
+    width: 130px;
+    display: none;
+    transition: 0.4s;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
 }
