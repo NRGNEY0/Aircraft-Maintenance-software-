@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def init_db()
+def init_db():
     conn = sqlite3.connect("aircrafts.db")
 
     cursor = conn.cursor()
@@ -14,9 +14,8 @@ def init_db()
         Status TEXT,
         DatePerformed TEXT,
         Technician TEXT,
-        Notes TEXT
-        FOREIGN KEY (Registration) REFERENCES Aircraft(Registration)
-        )
+        Notes TEXT,
+        FOREIGN KEY (Registration) REFERENCES Aircraft(Registration))
     """)
 
     cursor.execute("""
@@ -27,8 +26,7 @@ def init_db()
     DueDate TEXT,
     Last_Completed TEXT,
     Status TEXT,
-    FOREIGN KEY (Registration) REFERENCES Aircraft(Registration)
-    )
+    FOREIGN KEY (Registration) REFERENCES Aircraft(Registration))
     """)
 
     cursor.execute("""
@@ -39,8 +37,7 @@ def init_db()
     Quantity INTEGER,
     Condition TEXT,
     CompatableAircraft TEXT,
-    FOREIGN KEY (CompatableAircraft) REFERENCES Aircraft(Registration)
-    )
+    FOREIGN KEY (CompatableAircraft) REFERENCES Aircraft(Registration))
     """)
 
     conn.commit()
