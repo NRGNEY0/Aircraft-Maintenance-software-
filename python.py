@@ -1,7 +1,7 @@
 import sqlite3
 from flask import Flask
 
-app = (__name__)
+app = Flask(__name__)
 
 print("Flask works")
 
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Aircraft (
 
   Model TEXT,
 
-  Engine Type TEXT,
+  Engine_Type TEXT,
 
   Status TEXT)
 """)

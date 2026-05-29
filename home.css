@@ -7,37 +7,39 @@ body{
 .navbar{
     background-color: black;
     height: 70px;
-    border-bottom: 1px solid grey;
+    box-shadow: 2px 0px 4px white;
     width: 100%;
     display: flex;
     justify-content: center;
+    gap: 50px;
+    align-items: center;
 
 }
 
-.hori{
-    list-style-type: none; /* This removes the bullet points from the anchor tags*/
-    display: flex;
-    justify-content: flex-end;
-    
-    
-} 
-
-a{
-    text-decoration: none;
-    color: black;
+.dropdown button{
+    position: relative;
+    padding: 10px 15px;
+    font-size: 15px;
     border: 1px solid black;
-    border-radius: 15px;
-    padding: 5px 20px;
-    transition: 0.5s;
-    display: inline-block;
-    background-color: white;
-    margin: 4px;
+    border-radius: 10px;
 }
 
-a:hover{
-      background-color: black;
-      color: whitesmoke;
-      transform: scale(1.15);
+.dropdown a{
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+}
+
+.content{
+    position: absolute;
+    background-color: beige;
+    display: none;
+}
+
+.dropdown:hover .content{
+    display: block;
+
 }
 
 .overview{
@@ -46,7 +48,10 @@ a:hover{
     gap: 60px;
     justify-content: center;
     width: 80%;
-    background-color: aqua;
+    background-color: white;
+    margin-left: 30px;
+    padding-bottom: 15px;
+
 
 }
 
@@ -55,7 +60,7 @@ a:hover{
     border-radius: 10px;
     margin:20px;
     padding: 10px 20px;
-    background-color: beige;
+    background-color: black;
 }
 
 .card:hover{
@@ -67,7 +72,12 @@ a:hover{
 .head{
     font-size: larger;
     font-weight: 500px;
+    color: whitesmoke;
     
+}
+
+.info{
+    color: whitesmoke;
 }
 
 h1{
@@ -78,23 +88,5 @@ h1{
     
 }
 
-.dropdown{
-    position: relative; /* This creates a reference point that children element can interact with*/
-    margin-top: 18px;
-}
 
-.dropdown-menu{
-    position: absolute; /* This makes it relate to the parent element*/
-    top: 100%;
-    left: 0;
-    background-color: chocolate;
 
-    list-style: none;
-    width: 130px;
-    display: none;
-    transition: 0.4s;
-}
-
-.dropdown:hover .dropdown-menu{
-    display: block;
-}
