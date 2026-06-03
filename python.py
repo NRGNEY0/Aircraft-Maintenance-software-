@@ -1,35 +1,32 @@
 import sqlite3
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 print("Flask works")
 
-conn = sqlite3.connect("aircrafts.db")
+@app.route("/")
+def home():
 
-cursor = conn.cursor()
+  conn = sqlite3.connect("aircrafts.db")
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS Aircraft (
-  Registration TEXT PRIMARY KEY,
+  cursor = conn.cursor()
 
-  Manufacturer TEXT,
+  cursor.execute("SELECT COUNT(*) FROM Aircraft")
+  total_aircraft = cursor.fetchone()[0]
 
-  Model TEXT,
-
-  Engine_Type TEXT,
-
-  Status TEXT)
-""")
+  cursor.execute("SELECT COUNT(*) FROM Aircraft WHERE Status ='Grounded'")
+  grounded_Aircraft = cursor.fetchone()[0]
 
 
+  
+  
+  conn.close()
+  return render_template(
+    "home.htm",
+    total_aircraft=total_aircraft,
+    grounded_Aircraft=grounded_Aircraft
+  )
 
-cursor.execute("""
- INSERT INTO Aircraft
- VALUES( "G-NEYO", "Boeing", "B787-9","Rolls-Royce Trent 1000", "Grounded")
-
-""")
-
-
-conn.commit()
-conn.close()
+if __name__ == "__main__":
+    app.run(debug=True, port=5001)

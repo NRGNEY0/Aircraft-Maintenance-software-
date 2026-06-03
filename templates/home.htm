@@ -8,8 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <title>Main Dashboard</title>
 </head>
 <body>
@@ -35,14 +37,14 @@
         <div class="card">
             
             <p class="head">Total Aircraft</p>
-            <p class="info">0</p>
+            <p class="info">{{ total_aircraft }}</p>
             
 
         </div>
 
         <div class="card">
             <p class="head"> Grounded Aircraft</p>
-            <p class="info">0</p>
+            <p class="info">{{ grounded_Aircraft }}</p>
         </div>
 
         <div class="card">
@@ -54,6 +56,27 @@
 
     <div class="recent-tasks">
         <h1>Recents tasks </h1>
+
+        <div class="table-data">
+
+        <table >
+            <tr class="table-head">
+                <th>Aircraft</th>
+                <th>Registration</th>
+                <th>Task</th>
+                <th>Date Performed</th>
+                <th> Technician</th>
+            </tr>
+
+            <tr>
+                <td>B787</td>
+                <td>G-NEYO</td>
+                <td>Landing Gear inspection</td>
+                <td>2/06/26</td>
+                <td>Ryan Muigai</td>
+            </tr>
+        </table>
+        </div>
     </div>
 </body>
 </html>
