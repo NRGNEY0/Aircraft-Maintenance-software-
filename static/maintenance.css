@@ -1,0 +1,55 @@
+body{
+    background-color: forestgreen;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    background-color: black;
+    height: 70px;
+    box-shadow: 2px 0px 4px white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+
+}
+
+.home{
+    text-decoration: none;
+}
+
+.dropdown button{
+    position: relative;
+    padding: 10px 15px;
+    font-size: 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.dropdown a{
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+}
+
+.content{
+    position: absolute;
+    background-color: beige;
+    display: none;
+}
+
+.dropdown:hover .content{
+    display: block;
+
+}
+
+h1{
+    font-family: "orbitron", sans-serif;
+    font-size: 40px;
+    font-weight: 900px;
+    color: white;
+    
+}

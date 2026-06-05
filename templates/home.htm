@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--The two link tags are for fonts that will be used-->
+    <!--These link tags are for fonts that will be used-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -22,8 +22,8 @@
             <button>Menu</button>
 
             <div class="content">
-                <a href="aircraft.htm">Aircraft</a>
-                <a href="maintenence.htm">Maintenance</a>
+                <a href="{{ url_for('aircraft') }}">Aircraft</a>
+                <a href="{{ url_for('maintenance') }}">Maintenance</a>
             </div>
         </div>
         

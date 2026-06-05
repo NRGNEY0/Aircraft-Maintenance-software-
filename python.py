@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 print("Flask works")
 
-@app.route("/")
+@app.route("/") #This route is for the home page 
 def home():
 
   conn = sqlite3.connect("aircrafts.db")
@@ -27,6 +27,18 @@ def home():
     total_aircraft=total_aircraft,
     grounded_Aircraft=grounded_Aircraft
   )
+
+
+@app.route("/aircraft")
+def aircraft():
+  return render_template("aircraft.htm")
+
+
+@app.route("/maintenance")
+def maintenance():
+  return render_template("maintenance.htm")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

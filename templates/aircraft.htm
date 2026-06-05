@@ -4,9 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='aircraft.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!--These link tags are for the fonts that will be used in the program -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
     <title>Aircraft</title>
+
 </head>
 <body>
+    <div class = "navbar">
+        <a href="{{ url_for('home') }}" class="home"><h1>
+            Aircraft Maintenance</h1> </a>
+        
+        <div class="dropdown">
+            <button>Menu</button>
+
+            <div class="content">
+                <a href="{{ url_for('aircraft') }}">Aircraft</a>
+                <a href="{{ url_for('maintenance') }}">Maintenance</a>
+            </div>
+        </div>
     
+        </div>
+    <h1 class="head">Aircrafts</h1>
+        <div class="aircraft-info">
+            <table>
+                <tr>
+                    <th>Registration</th>
+                    <th>Manufacturer</th>
+                    <th>Model</th>
+                    <th>Engine</th>
+                    <th>Status</th>
+                </tr>
+
+                <tr>
+                    <td>G-NEYO</td>
+                    <td>Boeing</td>
+                    <td>B787-9</td>
+                    <td>Rolls Royce Trent 1000</td>
+                    <td>Grounded</td>
+                    
+                </tr>
+
+                <tr>
+                    <td>G-RYAN</td>
+                    <td>Airbus</td>
+                    <td>A320-200</td>
+                    <td>CFM56-5A</td>
+                    <td>Active</td>
+                </tr>
+            </table>
+        </div>
 </body>
 </html>
