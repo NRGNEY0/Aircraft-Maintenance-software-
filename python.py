@@ -53,9 +53,25 @@ def maintenance():
 
 @app.route("/add aircraft", methods=["GET", "POST"])
 def add_aircraft():
+  if request.method == "POST":
+    registration = request.form["Registration"]
+    manufacturer = request.form['Manufacturer']
+    model = request.form['Model']
+    engine = request.form['Engine']
+    status = request.form['Status']
+
+    conn = sqlite3.connect("aircrafts.db")
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Aircraft VALUES(?, ?, ?, ?, ?)",
+    (registration, manufacturer, model, engine, status))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("aircraft.htm"))
+
   return render_template("add aircraft.htm")
 
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)

@@ -113,5 +113,13 @@ label{
     font-size: 15px;
     cursor: pointer;
     text-decoration: none;
+    width: 150px;
     
+}
+
+.btn:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
 }
