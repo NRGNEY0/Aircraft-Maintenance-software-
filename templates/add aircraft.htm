@@ -31,7 +31,7 @@
     </div>
     <h1 class="space">Add An Aircraft</h1>
     <a href="{{url_for('aircraft')}}" class="back">Back</a>
-    <form>
+    <form method="POST" action="{{ url_for('add_aircraft')}}">
         <label for="Registration">Registration</label>
         <input type="text" placeholder="G-ABCD" name="Registration">
 
@@ -46,6 +46,8 @@
 
         <label for="status">Status</label>
         <input type="text" placeholder="Active / Grounded" name="Registration">
+
+        <button type="submit" class="btn">Add aircraft</button>
     </form>
 </body>
 </html>

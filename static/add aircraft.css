@@ -77,10 +77,41 @@ h1.space{
 }
 
 form{
-    margin: 20px 30px;
+    display: flex;
+    flex-direction: column; /* Makes items stack vertically */
+    gap: 10px; /* seperation between children elements */
+    width: 30%;
+    margin-top: 30px;  
+    margin-left: 30px;
+    color: white;
+    padding: 8px;
+}
+
+ input{
+    flex: 1; /* makes each element grow to fill the space equally */
+    min-width: 150px; /* optional: prevents them from getting too small */
+    height: 40px; /* increases height */
+    font-size: 16px; /* increases text size */
+    padding: 8px 12px; /* adds inner spacing */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
 }
 
 label{
-    display: block;
+    font-size: 20px;
 }
 
+.btn {
+    
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: "Titillium Web", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    
+}

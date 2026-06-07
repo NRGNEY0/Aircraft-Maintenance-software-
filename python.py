@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -51,7 +51,7 @@ def maintenance():
   return render_template("maintenance.htm")
 
 
-@app.route("/add aircraft")
+@app.route("/add aircraft", methods=["GET", "POST"])
 def add_aircraft():
   return render_template("add aircraft.htm")
 
