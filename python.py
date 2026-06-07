@@ -31,12 +31,29 @@ def home():
 
 @app.route("/aircraft")
 def aircraft():
-  return render_template("aircraft.htm")
+
+  conn = sqlite3.connect("aircrafts.db")
+  conn.row_factory = sqlite3.Row
+  cursor = conn.cursor()
+
+  cursor.execute("SELECT * FROM Aircraft")
+  Aircrafts = cursor.fetchall()
+  
+
+  conn.close()
+
+
+  return render_template("aircraft.htm", Aircrafts=Aircrafts)
 
 
 @app.route("/maintenance")
 def maintenance():
   return render_template("maintenance.htm")
+
+
+@app.route("/add aircraft")
+def add_aircraft():
+  return render_template("add aircraft.htm")
 
 
 

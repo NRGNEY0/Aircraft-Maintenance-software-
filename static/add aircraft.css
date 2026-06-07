@@ -54,59 +54,33 @@ h1{
     
 }
 
-.aircraft-info{
-    width: 85%;
-    margin-top: 5px;
+h1.space{
     margin-left: 30px;
+
 }
 
-table{
-    width: 100%;
-    border: 1px solid black;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-    
-}
-
-th{
-    background-color: black;
-    color: white;
-    padding: 5px;
-}
-th, td{
-    border: 1px solid black;
-    
-}
-
-tr:hover{
-    background-color: #ddd ;
-}
-
-
-.head{
+.back{
     margin-left: 30px;
-    font-family: "Titillium Web", sans-serif;
-}
-
-td{
-    padding: 10px;
-}
-
-.btn {
-    
-    background-color: black;
-    color: white;
     padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    font-family: "Titillium Web", sans-serif;
-    font-size: 15px;
-    cursor: pointer;
+    background-color: black;
+    color: white;
     text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.1s;
 }
 
-.btn:hover {
+.back:hover{
     background-color: white;
-    color: black;
     border: 1px solid black;
+    color: black;
 }
+
+form{
+    margin: 20px 30px;
+}
+
+label{
+    display: block;
+}
+

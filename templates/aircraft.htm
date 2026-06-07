@@ -41,23 +41,20 @@
                     <th>Status</th>
                 </tr>
 
+                {% for aircraft in Aircrafts %}
                 <tr>
-                    <td>G-NEYO</td>
-                    <td>Boeing</td>
-                    <td>B787-9</td>
-                    <td>Rolls Royce Trent 1000</td>
-                    <td>Grounded</td>
+                    <td>{{ aircraft['Registration'] }}</td>
+                    <td>{{ aircraft['Manufacturer'] }}</td>
+                    <td>{{ aircraft['Model'] }}</td>
+                    <td>{{ aircraft['Engine'] }}</td>
+                    <td>{{ aircraft['Status'] }}</td>
                     
                 </tr>
+                {% endfor %}
 
-                <tr>
-                    <td>G-RYAN</td>
-                    <td>Airbus</td>
-                    <td>A320-200</td>
-                    <td>CFM56-5A</td>
-                    <td>Active</td>
-                </tr>
             </table>
-        </div>
+           <a href="{{ url_for('add_aircraft') }}" class="btn">Add Aircraft</a>
+
+<script></script>
 </body>
 </html>

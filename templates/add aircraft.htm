@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='maintenance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add aircraft.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,13 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Add Aircraft</title>
 </head>
 <body>
     <div class = "navbar">
         <a href="{{ url_for('home') }}" class="home"><h1>
             Aircraft Maintenance</h1> </a>
-        
         
         <div class="dropdown">
             <button>Menu</button>
@@ -28,9 +27,25 @@
                 <a href="{{ url_for('maintenance') }}">Maintenance</a>
             </div>
         </div>
-        
-             
+    
     </div>
+    <h1 class="space">Add An Aircraft</h1>
+    <a href="{{url_for('aircraft')}}" class="back">Back</a>
+    <form>
+        <label for="Registration">Registration</label>
+        <input type="text" placeholder="G-ABCD" name="Registration">
 
+        <label for="Manufacturer">Manufacturer</label>
+        <input type="text" placeholder="e.g Airbus" name="Manufacturer">
+
+        <label for="Model">Model</label>
+        <input type="text" placeholder="e.g A320" name="Model">
+
+        <label for="Engine">Engine</label>
+        <input type="text" placeholder="e.g cfm56-5B" name="Engine">
+
+        <label for="status">Status</label>
+        <input type="text" placeholder="Active / Grounded" name="Registration">
+    </form>
 </body>
 </html>
