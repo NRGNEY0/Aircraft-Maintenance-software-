@@ -53,3 +53,55 @@ h1{
     color: white;
     
 }
+
+.info{
+    width: 85%;
+    margin-top: 15px;
+    margin-left: 30px;
+}
+
+table{
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    
+    
+}
+
+th{
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+th, td{
+    border: 1px solid black;
+    
+}
+
+tr:hover{
+    background-color: #ddd ;
+}
+
+
+.head{
+    margin-left: 30px;
+    font-family: "Titillium Web", sans-serif;
+}
+
+td{
+    padding: 10px;
+}
+
+.btn {
+    
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: "Titillium Web", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+}

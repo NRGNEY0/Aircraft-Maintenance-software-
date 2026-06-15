@@ -32,5 +32,35 @@
              
     </div>
 
+
+    <div class="info">
+        <table>
+            <tr>
+                <th>MaintenanceID</th>
+                <th>Aircraft</th>
+                <th>Registration</th>
+                <th>Task</th>
+                <th>Date Performed</th>
+                <th>Technician</th>
+                <th>Note</th>
+            </tr>
+
+            {%for task in Tasks%}
+            <tr>
+                <td>{{ task['MaintenanceID'] }}</td>
+                <td>{{ task['Registration'] }}</td>
+                <td>{{ task['Task'] }}</td>
+                <td>{{ task['Status'] }}</td>
+                <td>{{ task['DatePerformed'] }}</td>
+                <td>{{ task['Technician'] }}</td>
+                <td>{{ task['Note'] }}</td>
+                
+                
+            </tr>
+            {% endfor %}
+        </table>
+        <a href='' class="btn"> Add Task</a>
+    </div>
+
 </body>
 </html>
