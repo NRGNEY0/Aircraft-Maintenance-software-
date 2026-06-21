@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 print("Flask works")
-def generateTaskID(): #Function that generates task id
+def generateTaskID(): #Function that generates task id for the maintenance database
   with sqlite3.connect("aircrafts.db") as conn:
     cursor = conn.cursor()
 
@@ -96,8 +96,28 @@ def add_aircraft():
 
   return render_template("add_aircraft.htm")
 
-@app.route("/add_task" methods=['GET', 'POST'])
-def add_task
+
+
+
+@app.route("/add_task", methods=['GET', 'POST'])
+def add_task():
+  if request.method == "POST":
+    maintenanceID = generateTaskID()
+    registration = request.form['Registration']
+    task = request.form['Task']
+    status = request.form['Status']
+    date = request.form['Date']
+    technician = request.form['Technician']
+    note = request.form['Notes']
+
+    with sqlite3.connect("aircrafts.db") as conn:
+      cursor = conn.cursor()
+      cursor.execute("INSERT INTO Maintenance VALUES(?,?,?,?,?,?,?)",(maintenanceID, registration, task, status, date, technician, note))
+      conn.commit()
+
+      return redirect(url_for("maintenance"))
+  return render_template("add_task.htm")
+
 
 
 

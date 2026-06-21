@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='aircraft.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='maintenance.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,13 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    <title>Aircraft</title>
-
+    <title>Document</title>
 </head>
 <body>
     <div class = "navbar">
         <a href="{{ url_for('home') }}" class="home"><h1>
             Aircraft Maintenance</h1> </a>
+        
         
         <div class="dropdown">
             <button>Menu</button>
@@ -28,34 +28,30 @@
                 <a href="{{ url_for('maintenance') }}">Maintenance</a>
             </div>
         </div>
-    
-        </div>
-    <h1 class="head">Aircrafts</h1>
-        <div class="aircraft-info">
-            <table>
-                <tr>
-                    <th>Registration</th>
-                    <th>Manufacturer</th>
-                    <th>Model</th>
-                    <th>Engine</th>
-                    <th>Status</th>
-                </tr>
+        
+             
+    </div>
+    <h1 class="space">Add a Task</h1>
+    <a href="{{ url_for('maintenance')}}" class="back">back</a>
+    <form method="POST" action="{{ url_for('add_task')}}">
 
-                {% for aircraft in Aircrafts %}
-                <tr onclick>
-                    <td>{{ aircraft['Registration'] }}</td>
-                    <td>{{ aircraft['Manufacturer'] }}</td>
-                    <td>{{ aircraft['Model'] }}</td>
-                    <td>{{ aircraft['Engine'] }}</td>
-                    <td>{{ aircraft['Status'] }}</td>
-                    
-                </tr>
-                {% endfor %}
+        <label for="Registration">Registration</label>
+        <input type="text" placeholder="G-ABCD" name="Registration">
 
-            </table>
-           <a href="{{ url_for('add_aircraft') }}" class="btn">Add Aircraft</a>
-        </div>
+        <label for="Task">Task</label>
+        <input type="text" placeholder="e.g engine check" name="Task">
 
-<script></script>
-</body>
-</html>
+        <label for="Status">Status</label>
+        <input type="text" placeholder="e.g Complete / Pending" name="Status">
+
+        <label for="Date">Date Performed</label>
+        <input type="date" placeholder="e.g cfm56-5B" name="Date">
+
+        <label for="Technician">Technician</label>
+        <input type="text" placeholder="e.g John" name="Technician">
+
+        <label for="Note">Note</label>
+        <textarea name="Notes" placeholder="Additional Notes..." rows="4"></textarea>
+
+        <button type="submit" class="btn">Add Task</button>
+    </form>

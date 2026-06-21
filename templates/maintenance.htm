@@ -32,14 +32,14 @@
              
     </div>
 
-
+    <h1 class="space">Maintenance Tasks</h1>
     <div class="info">
         <table>
             <tr>
                 <th>MaintenanceID</th>
-                <th>Aircraft</th>
                 <th>Registration</th>
                 <th>Task</th>
+                <th>Status</th>
                 <th>Date Performed</th>
                 <th>Technician</th>
                 <th>Note</th>
@@ -59,8 +59,8 @@
             </tr>
             {% endfor %}
         </table>
-        <a href='' class="btn"> Add Task</a>
+        <a href='{{ url_for("add_task" )}}' class="btn"> Add Task</a>
     </div>
-
+   
 </body>
 </html>
