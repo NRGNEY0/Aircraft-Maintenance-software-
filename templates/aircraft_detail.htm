@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='aircraft_detail.css') }}">
+    <title>Aircraft Details</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}" class="home"><h1>Aircraft Maintenance</h1></a>
+        <div class="dropdown">
+            <button>Menu</button>
+            <div class="content">
+                <a href="{{ url_for('aircraft') }}">Aircraft</a>
+                <a href="{{ url_for('maintenance') }}">Maintenance</a>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ url_for('aircraft') }}" class="back">Back</a>
+
+    <h1 class="space">{{ aircraft['Registration'] }}</h1>
+
+    <div class="details">
+        <p><strong>Manufacturer:</strong> {{ aircraft['Manufacturer'] }}</p>
+        <p><strong>Model:</strong> {{ aircraft['Model'] }}</p>
+        <p><strong>Engine:</strong> {{ aircraft['Engine'] }}</p>
+        <p><strong>Status:</strong> {{ aircraft['Status'] }}</p>
+    </div>
+
+    <h1 class="space">Maintenance History</h1>
+    <div class="table-data">
+        <table>
+            <tr>
+                <th>MaintenanceID</th>
+                <th>Task</th>
+                <th>Status</th>
+                <th>DatePerformed</th>
+                <th>Technician</th>
+                <th>Notes</th>
+            </tr>
+            {% for record in m_records %}
+            <tr>
+                <td>{{ record['MaintenanceID'] }}</td>
+                <td>{{ record['Task'] }}</td>
+                <td>{{ record['Status'] }}</td>
+                <td>{{ record['DatePerformed'] }}</td>
+                <td>{{ record['Technician'] }}</td>
+                <td>{{ record['Notes'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

@@ -42,7 +42,8 @@
                 </tr>
 
                 {% for aircraft in Aircrafts %}
-                <tr onclick>
+                {% set detail_url = url_for('aircraft_detail', registration=aircraft['Registration']) %}
+                <tr onclick="window.location.href=' {{ detail_url }}'" style=" cursor: pointer;">
                     <td>{{ aircraft['Registration'] }}</td>
                     <td>{{ aircraft['Manufacturer'] }}</td>
                     <td>{{ aircraft['Model'] }}</td>

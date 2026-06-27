@@ -119,6 +119,19 @@ def add_task():
   return render_template("add_task.htm")
 
 
+@app.route("/aircraft/<registration>")
+def aircraft_detail(registration):
+  with sqlite3.connect("aircrafts.db") as conn:
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Aircraft WHERE Registration = ?",(registration,))
+    aircraft = cursor.fetchone()
+
+    cursor.execute("SELECT * FROM Maintenance WHERE Registration = ?",(registration,))
+    m_records = cursor.fetchall()
+
+    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records )
+
 
 
 

@@ -13,7 +13,10 @@ body{
     justify-content: center;
     gap: 50px;
     align-items: center;
+}
 
+.home{
+    text-decoration: none;
 }
 
 .dropdown button{
@@ -39,86 +42,80 @@ body{
 
 .dropdown:hover .content{
     display: block;
-
-}
-
-.overview{
-    border:1px solid black;
-    display:flex;
-    gap: 60px;
-    justify-content: center;
-    width: 60%;
-    background-color: white;
-    margin-left: 30px;
-    padding-bottom: 15px;
-
-
-}
-
-.card-a{
-    width: 100%;
-    border:1px solid black;
-    border-radius: 10px;
-    margin:20px;
-    padding: 10px 20px;
-    background-color: black;
-    text-decoration: none;
-}
-
-
-
-
-.head{
-    font-size: larger;
-    color: whitesmoke;
-    text-align: center;
-    font-family: "Titillium Web", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    
-}
-
-.info{
-    color: whitesmoke;
-    text-align: center;
-    font-family: "Share Tech Mono", monospace;
-    font-weight: 400;
-    font-style: normal;
 }
 
 h1{
     font-family: "orbitron", sans-serif;
     font-size: 40px;
-    font-weight: 900px;
+    font-weight: 900;
     color: white;
-    
 }
 
-
-.table-data{
-    border: 1px solid black;
-    width: 65%;
+h1.space{
     margin-left: 30px;
 }
 
+.back{
+    margin-left: 30px;
+    margin-top: 15px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.back:hover{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+
+.details{
+    background-color: white;
+    width: 60%;
+    margin-left: 30px;
+    margin-top: 10px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.details p{
+    font-family: "Titillium Web", sans-serif;
+    font-size: 18px;
+    margin: 8px 0;
+}
+
+.table-data{
+    border: 1px solid black;
+    width: 85%;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
 
 table{
     width: 100%;
     border-collapse: collapse;
 }
-th {
-    border: 1px solid black;
-    padding:5px;
+
+th{
     background-color: black;
     color: white;
+    padding: 5px;
+}
+
+th, td{
+    border: 1px solid black;
 }
 
 td{
-    border: 1px solid black;
     padding: 10px;
 }
 
 tr:hover{
     background-color: #ddd;
-
 }
