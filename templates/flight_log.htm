@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_aircraft.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!--These link tags are for the fonts that will be used in the program -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <title>Add Flight Log</title>
+</head>
+<body>
+    <div class = "navbar">
+        <a href="{{ url_for('home') }}" class="home"><h1>
+            Aircraft Maintenance</h1> </a>
+        
+        <div class="dropdown">
+            <button>Menu</button>
+
+            <div class="content">
+                <a href="{{ url_for('aircraft') }}">Aircraft</a>
+                <a href="{{ url_for('maintenance') }}">Maintenance</a>
+            </div>
+        </div>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>

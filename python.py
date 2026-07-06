@@ -32,6 +32,9 @@ def home():
     cursor.execute("SELECT COUNT(*) FROM Aircraft WHERE Status ='Grounded'")
     grounded_Aircraft = cursor.fetchone()[0]
 
+    
+    
+
 
     
     
@@ -39,7 +42,8 @@ def home():
     return render_template(
       "home.htm",
       total_aircraft=total_aircraft,
-      grounded_Aircraft=grounded_Aircraft
+      grounded_Aircraft=grounded_Aircraft,
+      
     )
 
 
@@ -137,4 +141,4 @@ def aircraft_detail(registration):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
