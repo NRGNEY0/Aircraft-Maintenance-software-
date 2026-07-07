@@ -136,9 +136,17 @@ def aircraft_detail(registration):
 
     return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records )
 
+@app.route("/flight_log/<registration>")
+def flight_log(registration):
+  with sqlite3.connect('aircrafts.db') as conn:
+    conn.row_factory= sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Aircraft WHERE Registration = ?",(registration,))
+    aircraft=cursor.fetchone()
+  return render_template("flight_log.htm", aircraft=aircraft)
 
 
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)

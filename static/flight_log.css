@@ -13,6 +13,7 @@ body{
     justify-content: center;
     gap: 50px;
     align-items: center;
+
 }
 
 .home{
@@ -42,23 +43,26 @@ body{
 
 .dropdown:hover .content{
     display: block;
+
 }
 
 h1{
     font-family: "orbitron", sans-serif;
     font-size: 40px;
-    font-weight: 900;
+    font-weight: 900px;
     color: white;
+    
+    
 }
 
 h1.space{
     margin-left: 30px;
+
 }
 
-.tag{
+.back{
+    margin-top: 80px;
     margin-left: 30px;
-    margin-top: 15px;
-    display: inline-block;
     padding: 10px 20px;
     background-color: black;
     color: white;
@@ -68,54 +72,56 @@ h1.space{
     transition: 0.1s;
 }
 
-.tag:hover{
+.back:hover{
     background-color: white;
     border: 1px solid black;
     color: black;
 }
 
-.details{
-    background-color: white;
-    width: 60%;
+form{
+    display: flex;
+    flex-direction: column; /* Makes items stack vertically */
+    gap: 10px; /* seperation between children elements */
+    width: 30%;
+    
     margin-left: 30px;
-    margin-top: 10px;
-    padding: 15px 25px;
-    border-radius: 10px;
-    border: 1px solid black;
+    color: white;
+    padding: 8px;
 }
 
-.details p{
-    font-family: "Titillium Web", sans-serif;
-    font-size: 18px;
-    margin: 8px 0;
+ input{
+    flex: 1; /* makes each element grow to fill the space equally */
+    min-width: 150px; /* optional: prevents them from getting too small */
+    height: 40px; /* increases height */
+    font-size: 16px; /* increases text size */
+    padding: 8px 12px; /* adds inner spacing */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
 }
 
-.table-data{
-    border: 1px solid black;
-    width: 85%;
-    margin-left: 30px;
-    margin-bottom: 30px;
+label{
+    font-size: 20px;
 }
 
-table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th{
+.btn {
+    
     background-color: black;
     color: white;
-    padding: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: "Titillium Web", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 150px;
+    
 }
 
-th, td{
+.btn:hover{
+    background-color: white;
+    color: black;
     border: 1px solid black;
-}
 
-td{
-    padding: 10px;
-}
-
-tr:hover{
-    background-color: #ddd;
 }

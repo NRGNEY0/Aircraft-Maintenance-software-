@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='add_aircraft.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='flight_log.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,9 +27,31 @@
                 <a href="{{ url_for('maintenance') }}">Maintenance</a>
             </div>
         </div>
-    <title>Document</title>
-</head>
+    </div>
+
 <body>
+    
+    
+    <a href="{{ url_for('aircraft_detail', registration= aircraft['Registration']) }}" class="back">Back</a>
+    
+    <h1 class="space">Log Flight for {{ aircraft['Registration'] }}</h1>
+        <form method="POST" action="">
+            <label for="Registration">Registration</label>
+            <input type="text" placeholder="G-ABCD" name="Registration">
+
+            <label for="Date">Date</label>
+            <input type="date" placeholder="01/01/26" name="Date">
+    
+            <label for="Hours Flown">Hours Flown</label>
+            <input type="number" placeholder="e.g 6.7" name="Hoursflown">
+    
+            <label for="Notes">Notes</label>
+            <textarea name="Notes" placeholder="Additional Notes..." rows="6"></textarea>
+    
+            
+    
+            <button type="submit" class="btn">log Flight</button>
+        </form>
     
 </body>
 </html>

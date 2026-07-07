@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <a href="{{ url_for('aircraft') }}" class="back">Back</a>
+    <a href="{{ url_for('aircraft') }}" class="tag">Back</a>
 
     <h1 class="space">{{ aircraft['Registration'] }}</h1>
 
@@ -27,15 +27,23 @@
         <p><strong>Engine:</strong> {{ aircraft['Engine'] }}</p>
         <p><strong>Status:</strong> {{ aircraft['Status'] }}</p>
     </div>
-
+    <h1 class="space">Flight History</h1>
     <div class="table-data">
         <table>
             <tr>
-                <th></th>
+                <th>FlightID</th>
+                <th>Date</th>
+                <th>Hours Flown</th>
+                <th>Notes</th>
+            </tr>
+
+            <tr>
+                <td></td>
             </tr>
         </table>
     </div>
-
+    {% set log_url = url_for('flight_log', registration= aircraft['Registration'])%}
+    <a href="{{ log_url }}" class="tag">Log Flight</a>
     <h1 class="space">Maintenance History</h1>
     <div class="table-data">
         <table>
@@ -59,5 +67,6 @@
             {% endfor %}
         </table>
     </div>
+    <a href="{{ url_for('add_task')}}" class="tag">Add Task</a>
 </body>
 </html>
