@@ -18,6 +18,20 @@ def generateTaskID(): #Function that generates task id for the maintenance datab
     new_num = last_num + 1
     return f"MX-{new_num:04d}"
 
+def generateFlightID():
+  with sqlite3.connect("aircrafts.db") as conn:
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT FlightID FROM Flight_log")
+    last = cursor.fetchone()
+
+    if last is None:
+      return "FL-0001"
+    
+    else:
+      last_num = int(last[0].split("-")[1]) 
+      new_num = last_num + 1 
+      return f"FL-{new_num:04d}"
 
 @app.route("/") #This route is for the home page 
 def home():
@@ -131,10 +145,13 @@ def aircraft_detail(registration):
     cursor.execute("SELECT * FROM Aircraft WHERE Registration = ?",(registration,))
     aircraft = cursor.fetchone()
 
+    cursor.execute("SELECT * FROM Flight_Log WHERE Registration = ?", (registration,))
+    flights = cursor.fetchall()
+
     cursor.execute("SELECT * FROM Maintenance WHERE Registration = ?",(registration,))
     m_records = cursor.fetchall()
 
-    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records )
+    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights )
 
 @app.route("/flight_log/<registration>")
 def flight_log(registration):
@@ -145,6 +162,22 @@ def flight_log(registration):
     aircraft=cursor.fetchone()
   return render_template("flight_log.htm", aircraft=aircraft)
 
+
+@app.route("/log_flight/<registration>", methods=["GET", "POST"])
+def log_flight(registration):
+  if request.method== "POST":
+    flightID = generateFlightID()
+    Date = request.form['Date']
+    HoursFlown = request.form['HoursFlown']
+    Notes = request.form['Notes']
+
+    with sqlite3.connect("aircrafts.db") as conn:
+      cursor = conn.cursor()
+
+      cursor.execute("INSERT INTO Flight_Log VALUES (?,?,?,?,?)", (flightID, registration, Date, HoursFlown, Notes))
+
+      return redirect(url_for('aircraft_detail', registration=registration))
+    return render_template('flight_log.htm')
 
 
 

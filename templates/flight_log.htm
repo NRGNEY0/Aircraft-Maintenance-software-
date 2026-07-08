@@ -35,7 +35,7 @@
     <a href="{{ url_for('aircraft_detail', registration= aircraft['Registration']) }}" class="back">Back</a>
     
     <h1 class="space">Log Flight for {{ aircraft['Registration'] }}</h1>
-        <form method="POST" action="">
+        <form method="POST" action="{{ url_for('log_flight', registration= aircraft['Registration']) }}">
             <label for="Registration">Registration</label>
             <input type="text" placeholder="G-ABCD" name="Registration">
 
@@ -43,7 +43,7 @@
             <input type="date" placeholder="01/01/26" name="Date">
     
             <label for="Hours Flown">Hours Flown</label>
-            <input type="number" placeholder="e.g 6.7" name="Hoursflown">
+            <input type="number" placeholder="e.g 6.7" name="HoursFlown">
     
             <label for="Notes">Notes</label>
             <textarea name="Notes" placeholder="Additional Notes..." rows="6"></textarea>
