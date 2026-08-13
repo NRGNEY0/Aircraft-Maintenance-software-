@@ -119,3 +119,7 @@ td{
 tr:hover{
     background-color: #ddd;
 }
+
+.hours{
+    margin-left: 30px;
+}

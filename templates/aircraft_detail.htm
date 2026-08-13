@@ -42,10 +42,15 @@
                 <td>{{ flight['FlightDate'] }}</td>
                 <td>{{ flight['HoursFlown'] }}</td>
                 <td>{{ flight['Notes'] }}</td>
+             
             </tr>
             {% endfor %}
         </table>
     </div>
+    <p class="hours"><strong>Total Hours:</strong>{{ totalHours }}</p>
+    <p class="hours"><strong>Hours since last maintenance:</strong>{{ hours_since_last_maintenance }}</p>
+
+
     {% set log_url = url_for('flight_log', registration= aircraft['Registration'])%}
     <a href="{{ log_url }}" class="tag">Log Flight</a>
     <h1 class="space">Maintenance History</h1>

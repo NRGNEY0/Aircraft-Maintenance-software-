@@ -22,7 +22,7 @@ def generateFlightID():
   with sqlite3.connect("aircrafts.db") as conn:
     cursor = conn.cursor()
 
-    cursor.execute("SELECT FlightID FROM Flight_log")
+    cursor.execute("SELECT FlightID FROM Flight_log ORDER BY rowid DESC LIMIT 1")
     last = cursor.fetchone()
 
     if last is None:
@@ -151,7 +151,16 @@ def aircraft_detail(registration):
     cursor.execute("SELECT * FROM Maintenance WHERE Registration = ?",(registration,))
     m_records = cursor.fetchall()
 
-    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights )
+    cursor.execute("SELECT SUM(HoursFlown) FROM Flight_log WHERE Registration = ?",(registration,))
+    totalHours = cursor.fetchone()[0]
+
+    cursor.execute("SELECT DatePerformed FROM Maintenance WHERE Registration = ? ORDER BY DatePerformed DESC LIMIT 1",(registration,))
+    last_maintenance = cursor.fetchone()
+
+    cursor.execute("SELECT SUM(HoursFlown) FROM Flight_Log WHERE Registration = ? AND FlightDate >= ?",(registration, last_maintenance[0] if last_maintenance else None)) #Gets the hours flown since last maintenance 
+    hours_since_last_maintenance = cursor.fetchone()[0]
+
+    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights, totalHours=totalHours, hours_since_last_maintenance=hours_since_last_maintenance) 
 
 @app.route("/flight_log/<registration>")
 def flight_log(registration):
@@ -182,4 +191,4 @@ def log_flight(registration):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)

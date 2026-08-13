@@ -10,6 +10,8 @@ FlightID  PRIMARY KEY,
 Registration TEXT,
 FlightDate TEXT,
 HoursFlown REAL,
+DepartureAirport TEXT,
+ArrivalAirport TEXT,
 Notes TEXT,
 FOREIGN KEY (Registration) REFERENCES Aircraft(Registration) )""")
 
