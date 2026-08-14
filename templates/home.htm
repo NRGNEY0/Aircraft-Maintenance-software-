@@ -66,16 +66,20 @@
                 <th>Status</th>
                 <th>Date Performed</th>
                 <th>Technician</th>
+                <th>Notes</th>
             </tr>
             
+            {% for task in recentTasks %}
             <tr>
-                <td>MX-003</td>
-                <td>G-TADZ</td>
-                <td>Task['Status']</td>
-                <td>Task['DatePerformed']</td>
-                <td>Task['Technician']</td>
-                <td>Task['Note']</td>
+                <td>{{ task['MaintenanceID'] }}</td>
+                <td>{{ task['Registration'] }}</td>
+                <td>{{ task['Task'] }}</td>
+                <td>{{ task['Status'] }}</td>
+                <td>{{ task['DatePerformed'] }}</td>
+                <td>{{ task['Technician'] }}</td>
+                <td>{{ task['Note'] }}</td>
             </tr>
+            {% endfor %}
             
         </table>
         </div>

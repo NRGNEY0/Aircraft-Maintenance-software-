@@ -1,5 +1,6 @@
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -37,7 +38,7 @@ def generateFlightID():
 def home():
 
   with sqlite3.connect("aircrafts.db") as conn:
-
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     cursor.execute("SELECT COUNT(*) FROM Aircraft")
@@ -46,17 +47,14 @@ def home():
     cursor.execute("SELECT COUNT(*) FROM Aircraft WHERE Status ='Grounded'")
     grounded_Aircraft = cursor.fetchone()[0]
 
-    
-    
-
-
-    
-    
+    cursor.execute("SELECT * FROM Maintenance DESC LIMIT 10")
+    recentTasks = cursor.fetchall()
     
     return render_template(
       "home.htm",
       total_aircraft=total_aircraft,
       grounded_Aircraft=grounded_Aircraft,
+      recentTasks=recentTasks
       
     )
 

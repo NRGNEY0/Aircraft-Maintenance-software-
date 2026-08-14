@@ -15,6 +15,8 @@ ArrivalAirport TEXT,
 Notes TEXT,
 FOREIGN KEY (Registration) REFERENCES Aircraft(Registration) )""")
 
+cursor.executemany("""INSERT INTO Inspections
+ VALUES ()  """)
 conn.commit()
 
 cursor.execute("DROP * FROM Flight_log  WHERE FlightID = FL-0002")
