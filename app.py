@@ -34,6 +34,72 @@ def generateFlightID():
       new_num = last_num + 1 
       return f"FL-{new_num:04d}"
 
+
+def getInspectionStatus(registration, totalHours, hoursSinceLastMaintenance):
+  with sqlite3.connect("aircrafts.db") as conn:
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    result = []
+    today = datetime.today()
+
+    cursor.execute("SELECT * FROM InspectionSchedule WHERE Registration = ?",(registration,))
+    inspections = cursor.fetchall()
+
+    for inspection in inspections:
+      InspectionType=inspection['InspectionType']
+      dayinterval=inspection['IntervalDays']
+      hourinterval=inspection['IntervalHours']
+
+
+
+    cursor.execute("SELECT * FROM Maintenance WHERE Registration = ?",(registration,))
+    tasks = cursor.fetchall()
+
+    for task in tasks:
+      tasktype = task['Task']
+
+    cursor.execute("SELECT DatePerformed FROM Maintenance WHERE Registration = ? AND Task = ? ORDER BY DatePerformed",(registration, InspectionType,))
+    lastDone = cursor.fetchone() or None
+
+    datedone = lastDone['DatePerformed']
+
+   
+    if lastDone is None:
+      result.append({
+        "InspectionType": inspection['InspectionType'],
+        "lastDone": "Never done",
+        "DateDue": "N/A",
+        "DaysRemaining": "N/A",
+        "HoursRemaining": "N/A",
+        "Status": "OverDue"
+      })
+      
+      
+    
+    dateDue = datetime.strptime(lastDone['DatePerformed'], "%Y-%m-%d") + timedelta(days=dayinterval)
+    daysremaining = (dateDue - today).days 
+
+    HoursRemaining = (hourinterval + hoursSinceLastMaintenance) - totalHours
+
+    if daysremaining <= 0 or HoursRemaining <= 0:
+      status = "Overdue"
+    elif daysremaining <= 14 or HoursRemaining <= 20:
+      status = "Due Soon"
+    else:
+      status = "OK"
+    
+    results.append({
+      "InspectionType": InspectionType,
+      "lastDone": lastDone,
+      "DateDue": dateDue.strftime("%Y-%m-%d"),
+      "DaysRemaining": daysremaining,
+      "HoursRemaining": HoursRemaining,
+      "Status": status
+    })
+
+    return results
+
 @app.route("/") #This route is for the home page 
 def home():
 
@@ -158,7 +224,9 @@ def aircraft_detail(registration):
     cursor.execute("SELECT SUM(HoursFlown) FROM Flight_Log WHERE Registration = ? AND FlightDate >= ?",(registration, last_maintenance[0] if last_maintenance else None)) #Gets the hours flown since last maintenance 
     hours_since_last_maintenance = cursor.fetchone()[0]
 
-    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights, totalHours=totalHours, hours_since_last_maintenance=hours_since_last_maintenance) 
+    inspection_status = getInspectionStatus(registration, totalHours, hours_since_last_maintenance)
+
+    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights, totalHours=totalHours, hours_since_last_maintenance=hours_since_last_maintenance, inspection_status=inspection_status) 
 
 @app.route("/flight_log/<registration>")
 def flight_log(registration):

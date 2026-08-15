@@ -15,11 +15,32 @@ ArrivalAirport TEXT,
 Notes TEXT,
 FOREIGN KEY (Registration) REFERENCES Aircraft(Registration) )""")
 
-cursor.executemany("""INSERT INTO Inspections
- VALUES ()  """)
+conn.execute(""" 
+CREATE TABLE IF NOT EXISTS InspectionSchedule ( 
+ScheduleID INTEGER PRIMARY KEY AUTOINCREMENT,
+Registration TEXT,
+InspectionType TEXT,
+IntervalHours REAL,
+IntervalDays INTEGER,
+FOREIGN KEY (Registration) REFERENCES Aircraft(Registration)
+
+)
+
+
+
+
+
+""")
+
+conn.execute("""
+      UPDATE InspectionSchedule 
+      SET InspectionType = 'Horizontal Stabiliser Jackscrew Assembly Inspection'
+      WHERE Registration = 'G-NEYO'
+
+ """)
+
 conn.commit()
 
-cursor.execute("DROP * FROM Flight_log  WHERE FlightID = FL-0002")
 conn.close()
 
 
