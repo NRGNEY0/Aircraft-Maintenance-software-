@@ -77,5 +77,38 @@
         </table>
     </div>
     <a href="{{ url_for('add_task')}}" class="tag">Add Task</a>
+
+    <h1 class="space">Inspection status</h1>
+    <div class="table-data">
+        <table>
+            <tr>
+                <th>Check type</th>
+                <th>Last done</th>
+                <th>Date due</th>
+                <th>Hours due</th>
+                <th>Days remaining</th>
+                <th>Hours remaining</th>
+                <th>Status</th>
+            </tr>
+            {% for inspection in inspections %}
+            <tr>
+                <td>{{ inspection['InspectionType'] }}</td>
+                <td>{{ inspection['lastDone'] }}</td>
+                <td>{{ inspection['DateDue'] }}</td>
+                <td>{{ inspection['HoursDue'] }}</td>
+                <td>{{ inspection['DaysRemaining'] if inspection['DaysRemaining'] is not none else 'N/A' }}</td>
+                <td>{{ inspection['HoursRemaining'] if inspection['HoursRemaining'] is not none else 'N/A' }}</td>
+                <td class="status-{{ inspection['Status'] }}">
+                    {% if inspection['Status'] == 'OK' %}OK
+                    {% elif inspection['Status'] == 'Due Soon' %}Due soon
+                    {% else %}Overdue{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    
+    
 </body>
 </html>

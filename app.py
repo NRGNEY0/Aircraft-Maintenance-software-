@@ -35,7 +35,7 @@ def generateFlightID():
       return f"FL-{new_num:04d}"
 
 
-def getInspectionStatus(registration, totalHours, hoursSinceLastMaintenance):
+def getInspectionStatus(registration, totalHours):
   with sqlite3.connect("aircrafts.db") as conn:
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
@@ -79,8 +79,12 @@ def getInspectionStatus(registration, totalHours, hoursSinceLastMaintenance):
     
     dateDue = datetime.strptime(lastDone['DatePerformed'], "%Y-%m-%d") + timedelta(days=dayinterval)
     daysremaining = (dateDue - today).days 
+    
+    cursor.execute("SELECT SUM(HoursFlown) FROM Flight_Log WHERE Registration = ? AND FlightDate <= ?",(registration, lastDone['DatePerformed']))
+    hoursAtLastCheck = cursor.fetchone()[0] or 0
 
-    HoursRemaining = (hourinterval + hoursSinceLastMaintenance) - totalHours
+    hoursDue= hoursAtLastCheck + hourinterval
+    HoursRemaining = hoursDue - totalHours
 
     if daysremaining <= 0 or HoursRemaining <= 0:
       status = "Overdue"
@@ -89,16 +93,17 @@ def getInspectionStatus(registration, totalHours, hoursSinceLastMaintenance):
     else:
       status = "OK"
     
-    results.append({
+    result.append({
       "InspectionType": InspectionType,
-      "lastDone": lastDone,
+      "lastDone": lastDone['DatePerformed'] if lastDone else "Never done",
       "DateDue": dateDue.strftime("%Y-%m-%d"),
+      "HoursDue": hoursDue,
       "DaysRemaining": daysremaining,
       "HoursRemaining": HoursRemaining,
       "Status": status
     })
 
-    return results
+    return result
 
 @app.route("/") #This route is for the home page 
 def home():
@@ -224,9 +229,9 @@ def aircraft_detail(registration):
     cursor.execute("SELECT SUM(HoursFlown) FROM Flight_Log WHERE Registration = ? AND FlightDate >= ?",(registration, last_maintenance[0] if last_maintenance else None)) #Gets the hours flown since last maintenance 
     hours_since_last_maintenance = cursor.fetchone()[0]
 
-    inspection_status = getInspectionStatus(registration, totalHours, hours_since_last_maintenance)
+    inspections = getInspectionStatus(registration, totalHours)
 
-    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights, totalHours=totalHours, hours_since_last_maintenance=hours_since_last_maintenance, inspection_status=inspection_status) 
+    return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights, totalHours=totalHours, hours_since_last_maintenance=hours_since_last_maintenance, inspections=inspections) 
 
 @app.route("/flight_log/<registration>")
 def flight_log(registration):

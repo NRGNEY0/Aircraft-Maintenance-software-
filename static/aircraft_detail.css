@@ -123,3 +123,22 @@ tr:hover{
 .hours{
     margin-left: 30px;
 }
+
+
+td.status-ok {
+    color: var(--moss);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+td.status-due_soon {
+    color: #B87A00;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+td.status-overdue {
+    color: var(--rust);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
