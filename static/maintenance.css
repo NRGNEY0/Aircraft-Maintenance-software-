@@ -195,3 +195,34 @@ textarea {
     font-family: inherit;
     resize: vertical;   /* lets user drag to resize height */
 }
+
+select {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 15px;
+    padding: 10px 12px;
+    border: 1px solid var(--paper-line);
+    border-radius: 6px;
+    background-color: whitesmoke;
+    color: black;
+    width: 100%;
+    cursor: pointer;
+    appearance: none; /* removes default browser styling */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232C2620' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--ink);
+}
+
+option {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--ink);
+    padding: 10px;
+}
+
+option:disabled {
+    color: var(--ink-soft);
+}

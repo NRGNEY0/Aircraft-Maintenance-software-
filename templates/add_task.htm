@@ -33,16 +33,33 @@
     </div>
     <h1 class="space">Add a Task</h1>
     <a href="{{ url_for('maintenance')}}" class="back">back</a>
+
+
     <form method="POST" action="{{ url_for('add_task')}}">
 
         <label for="Registration">Registration</label>
-        <input type="text" placeholder="G-ABCD" name="Registration">
+        <select name="Registration" id="Registration">
+            <option value="" disabled selected>Select an Aircraft...</option>
+            {% for aircraft in aircrafts %}
+            <option value ="{{ aircraft['Registration'] }}"> {{ aircraft['Registration'] }}</option>    
+            {% endfor %}
+        </select>
 
         <label for="Task">Task</label>
-        <input type="text" placeholder="e.g engine check" name="Task">
+        <select name="Task" id="Task">
+            <option value="" disabled selected>Select a Task...</option>
+            {% for task in inspection %}
+            <option value="{{ task['InspectionType'] }}"> {{ task['InspectionType'] }}</option>
+            {% endfor %} 
+        </select>
+
 
         <label for="Status">Status</label>
-        <input type="text" placeholder="e.g Complete / Pending" name="Status">
+        <select name="Status" id="Status">
+            <option value="" disabled selected>Select a Status...</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
 
         <label for="Date">Date Performed</label>
         <input type="date" placeholder="e.g cfm56-5B" name="Date">

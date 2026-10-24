@@ -45,7 +45,11 @@
         <input type="text" placeholder="e.g cfm56-5B" name="Engine">
 
         <label for="status">Status</label>
-        <input type="text" placeholder="Active / Grounded" name="Status">
+        <select name="Status" id="Status">
+            <option value="" disabled selected>Select a Status...</option>
+            <option value="Active">Active</option>
+            <option value="Grounded">Grounded</option>
+        </select>
 
         <button type="submit" class="btn">Add Aircraft</button>
     </form>

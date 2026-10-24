@@ -32,12 +32,17 @@ FOREIGN KEY (Registration) REFERENCES Aircraft(Registration)
 
 """)
 
-conn.execute("""
-      UPDATE InspectionSchedule 
-      SET InspectionType = 'Horizontal Stabiliser Jackscrew Assembly Inspection'
-      WHERE Registration = 'G-NEYO'
+conn.executemany("""
+      INSERT INTO InspectionSchedule (Registration, InspectionType, IntervalHours, IntervalDays) VALUES (?, ?, ?, ?)
+ """,
+ [
 
- """)
+ ("G-RYAN", "100 Hour Inspection", 100, 0),
+ ("G-RYAN", "Brake Inspection", 300, 0),
+ ("G-RYAN", "Lubrication Inspection", 250, 0),
+ ("G-RYAN", "Engine oil Inspection", 250, 0)
+ 
+ ],)
 
 conn.commit()
 

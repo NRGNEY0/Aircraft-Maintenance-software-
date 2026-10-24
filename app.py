@@ -51,59 +51,87 @@ def getInspectionStatus(registration, totalHours):
       dayinterval=inspection['IntervalDays']
       hourinterval=inspection['IntervalHours']
 
+      cursor.execute("SELECT * FROM Maintenance WHERE Registration = ?",(registration,))
+      tasks = cursor.fetchall()
+
+      for task in tasks:
+        tasktype = task['Task']
+
+      cursor.execute("SELECT DatePerformed FROM Maintenance WHERE Registration = ? AND Task = ? ORDER BY rowid DESC LIMIT 1",(registration, InspectionType,))
+      lastDone = cursor.fetchone() or None
+
+      print(f"Checking {InspectionType} for {registration} — lastDone: {lastDone}")
+
+      #datedone = lastDone['DatePerformed']
+
+    
+      if lastDone is None:
+        result.append({
+          "InspectionType": inspection['InspectionType'],
+          "lastDone": "Never done",
+          "DateDue": "N/A",
+          "DaysRemaining": "N/A",
+          "HoursRemaining": "N/A",
+          "Status": "OverDue"
+        })
+        continue
+        
+      if dayinterval > 0:  
+        dateDue = datetime.strptime(lastDone['DatePerformed'], "%Y-%m-%d") + timedelta(days=dayinterval)
+        daysremaining = (dateDue - today).days 
+        print(f"dateDue: {dateDue}, daysremaining: {daysremaining}")
+      else:
+        dateDue = None
+        daysremaining = None
+      
+      cursor.execute("SELECT SUM(HoursFlown) FROM Flight_Log WHERE Registration = ? AND FlightDate <= ?",(registration, lastDone['DatePerformed']))
+      hoursAtLastCheck = cursor.fetchone()[0] or 0
+      print(f"hoursAtLastCheck: {hoursAtLastCheck}")
+      print(f"totalHours: {totalHours}")
+
+      if hourinterval > 0:
+        hoursDue= hoursAtLastCheck + hourinterval
+        HoursRemaining = hoursDue - totalHours or 0
+      else:
+        hoursDue = None
+        HoursRemaining = None
 
 
-    cursor.execute("SELECT * FROM Maintenance WHERE Registration = ?",(registration,))
-    tasks = cursor.fetchall()
+      if dayinterval > 0 or hourinterval > 0:
 
-    for task in tasks:
-      tasktype = task['Task']
+        daysOverDue = daysremaining is not None and daysremaining <= 0
 
-    cursor.execute("SELECT DatePerformed FROM Maintenance WHERE Registration = ? AND Task = ? ORDER BY DatePerformed",(registration, InspectionType,))
-    lastDone = cursor.fetchone() or None
+        hoursOverDue = HoursRemaining is not None and HoursRemaining <= 0
 
-    datedone = lastDone['DatePerformed']
+        daysDueSoon = daysremaining is not None and daysremaining <= 14
 
-   
-    if lastDone is None:
+        hoursDueSoon = HoursRemaining is not None and HoursRemaining <= 20
+
+        if daysOverDue or hoursOverDue:
+          status = "Overdue"
+        elif daysDueSoon or hoursDueSoon:
+          status = "Due Soon"
+        else:
+          status = "OK"
+      
       result.append({
-        "InspectionType": inspection['InspectionType'],
-        "lastDone": "Never done",
-        "DateDue": "N/A",
-        "DaysRemaining": "N/A",
-        "HoursRemaining": "N/A",
-        "Status": "OverDue"
+        "InspectionType": InspectionType,
+        "lastDone": lastDone['DatePerformed'] if lastDone else "Never done",
+        "DateDue": dateDue.strftime("%Y-%m-%d") if dateDue is not None else "N/A",
+        "HoursDue": hoursDue,
+        "DaysRemaining": daysremaining,
+        "HoursRemaining": HoursRemaining,
+        "Status": status
       })
-      
-      
-    
-    dateDue = datetime.strptime(lastDone['DatePerformed'], "%Y-%m-%d") + timedelta(days=dayinterval)
-    daysremaining = (dateDue - today).days 
-    
-    cursor.execute("SELECT SUM(HoursFlown) FROM Flight_Log WHERE Registration = ? AND FlightDate <= ?",(registration, lastDone['DatePerformed']))
-    hoursAtLastCheck = cursor.fetchone()[0] or 0
 
-    hoursDue= hoursAtLastCheck + hourinterval
-    HoursRemaining = hoursDue - totalHours
-
-    if daysremaining <= 0 or HoursRemaining <= 0:
-      status = "Overdue"
-    elif daysremaining <= 14 or HoursRemaining <= 20:
-      status = "Due Soon"
-    else:
-      status = "OK"
-    
-    result.append({
-      "InspectionType": InspectionType,
-      "lastDone": lastDone['DatePerformed'] if lastDone else "Never done",
-      "DateDue": dateDue.strftime("%Y-%m-%d"),
-      "HoursDue": hoursDue,
-      "DaysRemaining": daysremaining,
-      "HoursRemaining": HoursRemaining,
-      "Status": status
-    })
-
+     
     return result
+
+def updateAircraftStatus(registration, status):
+  with sqlite3.connect("aircrafts.db") as conn:
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Aircraft SET Status = ? WHERE Registration = ?", (status, registration))
+    conn.commit()
 
 @app.route("/") #This route is for the home page 
 def home():
@@ -118,7 +146,7 @@ def home():
     cursor.execute("SELECT COUNT(*) FROM Aircraft WHERE Status ='Grounded'")
     grounded_Aircraft = cursor.fetchone()[0]
 
-    cursor.execute("SELECT * FROM Maintenance DESC LIMIT 10")
+    cursor.execute("SELECT * FROM Maintenance ORDER BY rowid DESC LIMIT 10")
     recentTasks = cursor.fetchall()
     
     return render_template(
@@ -128,7 +156,6 @@ def home():
       recentTasks=recentTasks
       
     )
-
 
 @app.route("/aircraft")
 def aircraft():
@@ -188,6 +215,20 @@ def add_aircraft():
 
 @app.route("/add_task", methods=['GET', 'POST'])
 def add_task():
+
+  with sqlite3.connect("aircrafts.db") as conn:
+            conn.row_factory = sqlite3.Row 
+            cursor = conn.cursor()
+            cursor.execute("SELECT InspectionType FROM InspectionSchedule")
+            inspection = cursor.fetchall()
+  
+  with sqlite3.connect("aircrafts.db") as conn:
+      
+      conn.row_factory = sqlite3.Row
+      cursor = conn.cursor()
+      cursor.execute("SELECT Registration FROM Aircraft")
+      aircrafts = cursor.fetchall()
+
   if request.method == "POST":
     maintenanceID = generateTaskID()
     registration = request.form['Registration']
@@ -203,7 +244,7 @@ def add_task():
       conn.commit()
 
       return redirect(url_for("maintenance"))
-  return render_template("add_task.htm")
+  return render_template("add_task.htm", inspection=inspection, aircrafts=aircrafts)
 
 
 @app.route("/aircraft/<registration>")
@@ -230,6 +271,10 @@ def aircraft_detail(registration):
     hours_since_last_maintenance = cursor.fetchone()[0]
 
     inspections = getInspectionStatus(registration, totalHours)
+    for inspection in inspections:
+      if inspection['Status'] == "Overdue":
+        updateAircraftStatus(registration, "Grounded")
+      print(inspection['Status'])
 
     return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights, totalHours=totalHours, hours_since_last_maintenance=hours_since_last_maintenance, inspections=inspections) 
 
