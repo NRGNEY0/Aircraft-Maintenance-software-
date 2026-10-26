@@ -272,9 +272,12 @@ def aircraft_detail(registration):
 
     inspections = getInspectionStatus(registration, totalHours)
     for inspection in inspections:
-      if inspection['Status'] == "Overdue":
+      if inspection['Status'].lower() == "overdue":
         updateAircraftStatus(registration, "Grounded")
-      print(inspection['Status'])
+        print(inspection['Status'])
+      else:
+        updateAircraftStatus(registration, "Active")
+        print(inspection['Status'])
 
     return render_template("aircraft_detail.htm", aircraft=aircraft, m_records=m_records, flights=flights, totalHours=totalHours, hours_since_last_maintenance=hours_since_last_maintenance, inspections=inspections) 
 

@@ -37,7 +37,7 @@
     <h1 class="space">Log Flight for {{ aircraft['Registration'] }}</h1>
         <form method="POST" action="{{ url_for('log_flight', registration= aircraft['Registration']) }}">
             <label for="Registration">Registration</label>
-            <input type="text" placeholder="G-ABCD" name="Registration">
+            <textarea name="Registration">{{ aircraft['Registration'] }}</textarea> 
 
             <label for="Date">Date</label>
             <input type="date" placeholder="01/01/26" name="Date">

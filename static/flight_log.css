@@ -125,3 +125,13 @@ label{
     border: 1px solid black;
 
 }
+
+textarea{
+    flex: 1; /* makes each element grow to fill the space equally */
+    min-width: 150px; /* optional: prevents them from getting too small */
+    height: 100px; /* increases height */
+    font-size: 16px; /* increases text size */
+    padding: 8px 12px; /* adds inner spacing */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}

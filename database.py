@@ -37,11 +37,8 @@ conn.executemany("""
  """,
  [
 
- ("G-RYAN", "100 Hour Inspection", 100, 0),
- ("G-RYAN", "Brake Inspection", 300, 0),
- ("G-RYAN", "Lubrication Inspection", 250, 0),
- ("G-RYAN", "Engine oil Inspection", 250, 0)
- 
+ ("G-KIRA", "Lubrication Inspection", 250, 0),
+ ("G-PULA", "Lubrication Inspection", 250, 0),
  ],)
 
 conn.commit()
